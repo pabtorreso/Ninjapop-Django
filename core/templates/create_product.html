@@ -1,0 +1,11 @@
+{% extends 'admin_panel.html' %}
+
+{% block admin_content %}
+{% load static %}
+    <h2>Crear Producto</h2>
+    <form method="POST" enctype="multipart/form-data" action="{% url 'create_product' %}" class="form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Crear producto</button>
+    </form>
+{% endblock %}

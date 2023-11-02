@@ -1,0 +1,11 @@
+{% extends 'admin_panel.html' %}
+
+{% block admin_content %}
+{% load static %}
+  <h2>Crear Usuarios</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Crear Usuario</button>
+  </form>
+{% endblock %}

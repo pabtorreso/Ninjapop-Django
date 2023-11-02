@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<div class="contenido px-3 py-4 mt-3 text-center">
+  <div class="row justify-content-sm-center pb-3 fs-5 fw-normal lh-sm text-body-emphasis bg-body-secondary rounded shadow-sm">
+    <h3 class="pt-5">Iniciar Sesión</h3>
+    <p class="border-bottom py-1"></p>
+    <div class="col-sm-4 mb-5 form-signin fw-normal">
+        <form class="needs-validation" novalidate id="formulario" name="form" autocomplete="off" action="#" method="POST"> 
+        {% csrf_token %}
+        {% if error %}
+        <p>{{ error }}</p>
+        {% endif %}
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="username" name="username" minlength="2" maxlength="30" placeholder="Nombre de usuario" required>
+          <label for="username">Nombre de usuario</label>
+          <div class="invalid-feedback">
+            Ingrese un nombre de usuario válido.
+          </div>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña"
+          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,63}$" required>
+          <label for="password">Contraseña</label>
+          <div class="invalid-feedback">
+            Ingrese una contraseña válida.
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100 py-2">Iniciar Sesión</button>
+        <hr class="mt-4 mb-2">
+        <small class="text-body-secondary fw-medium">Si no tienes una cuenta, regístrate aquí: <a href="{% url 'register' %}" class="text-decoration-none"><strong>Registrar</strong></a></small>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

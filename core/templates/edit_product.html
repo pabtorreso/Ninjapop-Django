@@ -1,0 +1,11 @@
+{% extends 'admin_panel.html' %}
+
+{% block admin_content %}
+{% load static %}
+    <h2>Editar Producto</h2>
+    <form method="POST" enctype="multipart/form-data" action="{% url 'edit_product' product_id=product_id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar cambios</button>
+    </form>
+{% endblock %}

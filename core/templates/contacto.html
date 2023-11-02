@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+<!--FORMULARIO-CONTACTO-->
+<div class="container">
+    <div class="rounded px-4 py-4 mt-3">
+      <div class="rounded shadow fw-medium">
+        <div class="row p-0">
+          <div class="col-sm-6 py-5 px-5 rounded-start bg-primary text-white">
+            <div clas="informacion-contacto text-white">
+              <h3 class="mt-4 ms-4 mb-3">Direcciones:</h3>
+              <ul class="list-unstyled fw-normal ms-5 me-0 mt-0">
+                <li class="fs-5 mb-2">Ote#233 Viña del Mar</li>
+                <li class="fs-5 mb-2">contact@ninjapop.com</li>
+                <li class="fs-5 mb-2">+56 9 98989898</li>
+              </ul>
+            </div>
+            <p class="fw-medium fs-4 ms-4 mb-2 me-0 mt-4">Redes Sociales:</p>
+            <div class="iconos-social-contacto ms-5 mb-4">
+              
+              <a class="instagram" href="#">
+                <i class="bi bi-instagram me-4" style="font-size: 25px;color: rgb(255, 255, 255);"></i>
+              </a>
+              <a class="facebook" href="#">
+                <i class="bi bi-facebook me-4" style="font-size: 25px;color: rgb(255, 255, 255);"></i>
+              </a>
+              <a class="twitter" href="#">
+                <i class="bi bi-twitter me-4" style="font-size: 25px;color: rgb(255, 255, 255);"></i>
+              </a>
+            </div>
+            <p class="fw-medium fs-4  ms-4 mb-2 me-0 mt-4">Mapa:</p>
+            <!--Google map-->
+            <div class="col-sm-12 ms-0 p-0">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3345.8104879076054!2d-71.5471015206543!3d-33.008771499999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9689ddc3bc97fb55%3A0x1055f11050b3376a!2s15%20Norte%20-%203%20Oriente!5e0!3m2!1ses-419!2sus!4v1687387155354!5m2!1ses-419!2sus"
+                width="225" height="200 " style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+              </iframe>
+            </div>
+            <!--Google Maps-->
+          </div>
+          <div class="col-sm-6 py-5 px-5 rounded-end bg-light text-black">
+            <form class="needs-validation" novalidate id="formulario" name="form" autocomplete="off" action="#"
+              method="POST">
+              <h3 class="tituloForm">Contáctenos </h3><br>
+              <div class="col-sm mb-3" id="form_box">
+                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" value=""
+                  minlength="2" maxlength="30" required>
+                <div class="invalid-feedback">
+                  Ingrese un nombre valido.
+                </div>
+              </div>
+              <div class="col-sm mb-3" id="form_box">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email" value=""
+                  pattern="/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g" size="30" required>
+                <div class="invalid-feedback">
+                  Ingrese un correo valido.
+                </div>
+              </div>
+              <div class="col-sm mb" id="form_box">
+                <input type="tel" class="form-control" id="tel" name="tel" placeholder="Telefono" value="" maxlength="15"
+                  required>
+                <div class="invalid-feedback">
+                  Ingrese un telefono valido.
+                </div>
+              </div>
+              <div class="col-sm mb-3" id="form_box">
+                <label for="" class="form-label"></label>
+                <textarea class="form-control" placeholder="Dejanos un comentario" id="floatingTextarea2"
+                  style="height: 100px" minlength="5" maxlength="300" required></textarea>
+                <div class="invalid-feedback">
+                  5 caracteres min, 300 caracteres max.
+                </div>
+              </div>
+              <div class="form-check col-sm mb-3">
+                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                <label class="form-check-label" for="invalidCheck">
+                  Acepto los terminos y condiciones
+                </label>
+                <div class="invalid-feedback">
+                  Debe aceptar los terminos antes de enviar.
+                </div>
+              </div>
+              <div class="col-sm mb-3" id="form_box">
+                <button class="btn btn-primary" type="submit" href="#">Enviar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

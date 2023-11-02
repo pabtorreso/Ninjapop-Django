@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<main class="container-fullwidith pb-4">
+    <div class="container">
+
+        <!-- Contenido -->
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12">
+                    <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                        <div class="card-body p-0">
+                            <div class="row g-0">
+                                <div class="col-lg-8 text-body-emphasis bg-body-tertiary rounded-start-4">
+                                    <div class="p-5">
+                                        <div class="d-flex justify-content-between align-items-center mb-5">
+                                            <h1 class="fw-bold mb-0">Carrito de Compras</h1>
+                                            <h6 class="mb-0 text-muted">{{ total_quantity }} PRODUCTOS</h6>
+                                        </div>
+                                        <hr class="my-4">
+
+                                        <!-- Iterar sobre los elementos del carrito -->
+                                        {% for item in cart.cartitem_set.all %}
+                                        <div class="row mb-4 d-flex justify-content-between align-items-center">
+                                            <div class="col-md-2 col-lg-2 col-xl-2">
+                                                <img src="{{ item.product.imagen1.url }}" class="img-fluid rounded-3"
+                                                    alt="{{ item.product.nombre }}">
+                                            </div>
+                                            <div class="col-md-3 col-lg-3 col-xl-3">
+                                                <h6 class="text-muted">FUNKO</h6>
+                                                <h6 class="text-black mb-0">{{ item.product.nombre }}</h6>
+                                            </div>
+                                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                                <form action="{% url 'modificar_cantidad' cart_item_id=item.id %}"
+                                                    method="post">
+                                                    {% csrf_token %}
+                                                    <div class="input-group">
+                                                        <button class="btn btn-link px-1"
+                                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                                            oninput="this.form.submit()" type="submit">
+                                                            <i class="bi bi-dash"></i>
+                                                        </button>
+                                                        <input type="number" name="cantidad" value="{{ item.quantity }}"
+                                                            data-id="{{ item.id }}" min="1" step="1"
+                                                            class="form-control form-control-sm"
+                                                            style="max-width: 80px;">
+                                                        <button class="btn btn-link px-1"
+                                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                                            oninput="this.form.submit()" type="submit">
+                                                            <i class="bi bi-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                                <h6 class="mb-0">&dollar; {{ item.subtotal }}</h6>
+                                            </div>
+                                            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                                <form action="{% url 'eliminar_producto' cart_item_id=item.id %}"
+                                                    method="post">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn"><i
+                                                            class="bi bi-x-lg"></i></button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <hr class="my-4">
+                                        {% endfor %}
+
+                                        <div class="pt-5">
+                                            <h6 class="mb-0"><a href="{% url 'catalogo' %}" class="text-body">
+                                                <i class="volverc"></i>&leftarrow;Seguir comprando</a></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 bg-grey text-body-emphasis bg-body-secondary rounded-end-4">
+                                    <div class="p-5">
+                                        <h3 class="fw-bold mb-5 mt-2 pt-1">Detalle</h3>
+                                        <hr class="my-4">
+                                        <div class="d-flex justify-content-between mb-4">
+                                            <h5 class="text-uppercase">PRODUCTOS {{ total_quantity }}</h5>
+                                            <h5>&dollar; {{ total_price }}</h5>
+                                        </div>
+                                        <h5 class="text-uppercase mb-3">ENVÍO</h5>
+                                        <div class="mb-4 pb-2">
+                                            <select class="select p-2 border-light-subtle rounded fs-5 fw-normal">
+                                                <option value="1">Chilexpress - &dollar;{{ shipping_cost }}</option>
+                                            </select>
+                                        </div>
+                                        <h5 class="text-uppercase mb-3">CÓDIGO DE CUPÓN</h5>
+                                        <div class="mb-5">
+                                            <div class="form-outline">
+                                                <input type="text" id="form3Examplea2"
+                                                    class="form-control form-control-lg"
+                                                    placeholder="Ingresa tu código" />
+                                            </div>
+                                        </div>
+                                        <hr class="my-4">
+                                        <div class="d-flex justify-content-between mb-5">
+                                            <h5 class="text-uppercase">VALOR TOTAL</h5>
+                                            <h5>&dollar; {{ discounted_total }}</h5>
+                                        </div>
+                                        {% if total_quantity > 0 %}
+                                        <button type="button" class="btn btn-primary btn-block btn-lg w-100"
+                                            data-mdb-ripple-color="dark" data-bs-toggle="modal"
+                                            data-bs-target="#staticBackdrop">
+                                            Comprar
+                                        </button>
+                                        {% else %}
+                                        <button type="button" class="btn btn-primary btn-block btn-lg w-100"
+                                            data-mdb-ripple-color="dark" data-bs-toggle="modal"
+                                            data-bs-target="#staticBackdrop" disabled>
+                                            Comprar
+                                        </button>
+                                        {% endif %}
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                                            data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Espera
+                                                        </h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        ¿Estás seguro de realizar esta compra?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Volver</button>
+                                                        <button type="button" class="btn btn-primary">Continuar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+{% endblock %}

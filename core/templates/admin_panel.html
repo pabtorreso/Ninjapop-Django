@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<div class="row p-5">
+    <div class="col-sm-3">
+        <div class="list-group shadow-sm">
+            <a href="{% url 'user_panel' %}" class="list-group-item list-group-item-action">Usuarios</a>
+            <a href="{% url 'product_panel' %}" class="list-group-item list-group-item-action">Productos</a>
+        </div>
+    </div>
+    <div class="col-sm-9 text-body-emphasis bg-body-primary rounded border shadow-sm p-3">
+        {% block admin_content %}
+        <h2>Panel de Administrador</h2>
+        <p class="w-75 pb-2 pt-3" style="text-align: justify;">
+            Selecciona una opción del menu lateral izquierdo.
+          </p>
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}
